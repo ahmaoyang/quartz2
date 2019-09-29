@@ -35,4 +35,12 @@ public interface JobManageService {
      */
     void updateCronExpression(String jobName, String jobGroup, String cronExpression);
 
+    /**
+     * 立即执行一次
+     *
+     * @param jobName
+     * @param jobGroup
+     */
+
+    void doFast(String jobName, String jobGroup);
 }

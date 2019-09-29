@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 全局异常处理
  *
- * @author hellofly
+ * @author maoYang
  * @date 2019/4/11
  */
 @ControllerAdvice

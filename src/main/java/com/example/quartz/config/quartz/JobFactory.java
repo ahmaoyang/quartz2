@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * QuartzJob工厂类
  *
- * @author hellofly
+ * @author maoYang
  * @date 2019/4/9
  */
 @Component

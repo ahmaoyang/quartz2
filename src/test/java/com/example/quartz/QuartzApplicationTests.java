@@ -11,6 +11,8 @@ public class QuartzApplicationTests {
 
     @Test
     public void contextLoads() {
+
+        System.out.println("新年好！！");
     }
 
 }

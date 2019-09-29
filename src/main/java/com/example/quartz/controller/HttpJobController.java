@@ -16,7 +16,7 @@ import javax.validation.Valid;
 /**
  * Http类型任务Controller
  *
- * @author hellofly
+ * @author maoYang
  * @date 2019/4/9
  */
 @RestController
@@ -63,4 +63,10 @@ public class HttpJobController {
         return Response.success(result);
     }
 
+
+    @GetMapping(value ="/testWork")
+    public void  testWork() {
+        System.out.println("新年好！！！！！");
+
+    }
 }

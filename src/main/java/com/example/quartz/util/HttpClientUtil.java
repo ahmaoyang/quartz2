@@ -3,6 +3,7 @@ package com.example.quartz.util;
 import org.apache.commons.codec.Charsets;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -18,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +28,7 @@ import java.util.Map.Entry;
 /**
  * Httpclient请求工具类
  *
- * @author hellofly
+ * @author maoYang
  * @date 2019/4/9
  */
 public class HttpClientUtil {
@@ -82,8 +84,18 @@ public class HttpClientUtil {
             httpGet.setConfig(requestConfig);
 
             // 发送请求
-            response = httpclient.execute(httpGet);
-            result = EntityUtils.toString(response.getEntity(), Charsets.UTF_8);
+            try {
+                response = httpclient.execute(httpGet);
+            } catch (IOException e) {
+                logger.error("链接失败{}",e);
+            }
+            try {
+                result = EntityUtils.toString(response.getEntity(), Charsets.UTF_8);
+            } catch (IOException e) {
+              logger.error("{}",e);
+            } catch (ParseException e) {
+                logger.error("{}",e);
+            }
             if (response.getStatusLine().getStatusCode() != HTTP_SUCCESS_STATUS_CODE) {
                 logger.error("Error in getMap. Request URL is [{}], params [{}]. Result:[{}]", url, formDataParam, result);
             }

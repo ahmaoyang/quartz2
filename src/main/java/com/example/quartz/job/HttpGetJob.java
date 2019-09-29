@@ -40,8 +40,12 @@ public class HttpGetJob implements Job {
             httpJobLogs.setHttpParams(paramMap.toString());
         }
 
-        String result = HttpClientUtil.getMap(url, paramMap);
-        httpJobLogs.setResult(result);
+        try {
+            String result = HttpClientUtil.getMap(url, paramMap);
+            httpJobLogs.setResult(result);
+        } catch (Exception e) {
+           logger.error("连接失败{}",e);
+        }
 
         logger.info("Success in execute [{}_{}]", jobName, jobGroup);
 

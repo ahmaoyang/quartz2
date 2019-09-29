@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 接口返回结果封装类
  *
- * @author hellofly
+ * @author maoYang
  * @date 2019/4/9
  */
 public class Response<T> implements Serializable {

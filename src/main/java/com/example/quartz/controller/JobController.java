@@ -1,5 +1,6 @@
 package com.example.quartz.controller;
 
+import com.example.quartz.config.exception.GlobalExceptionHandler;
 import com.example.quartz.config.response.Response;
 import com.example.quartz.service.JobManageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * job操作Controller
  *
- * @author hellofly
+ * @author maoYang
  * @date 2019/4/9
  */
 @RestController
@@ -54,4 +55,20 @@ public class JobController {
         return Response.success();
     }
 
+    /**
+     * 立即执行一次
+     *
+     * @return
+     */
+    @RequestMapping(value = "/doFast", method = RequestMethod.POST)
+    public Response doFast(@RequestParam(name = "jobName") String jobName,
+                           @RequestParam(name = "jobGroup") String jobGroup) {
+
+        try {
+            jobManageService.doFast(jobName, jobGroup);
+        } catch (Exception e) {
+          return new GlobalExceptionHandler().handleException(e);
+        }
+        return Response.success();
+    }
 }

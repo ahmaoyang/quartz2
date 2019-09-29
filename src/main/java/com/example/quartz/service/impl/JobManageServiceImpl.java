@@ -79,4 +79,18 @@ public class JobManageServiceImpl implements JobManageService {
 
     }
 
+    @Override
+    public void doFast(String jobName, String jobGroup) {
+        String jobStatusInfo = jobUtil.getJobStatusInfo(jobName, jobGroup);
+        if (!StringUtils.equals(jobStatusInfo, Constant.JOB_STATUS_NORMAL)) {
+            throw new RuntimeException("任务仅在正常状态下才可以立即执行!");
+        }
+        JobKey jobKey = JobKey.jobKey(jobName, jobGroup);
+        try {
+            scheduler.triggerJob(jobKey);
+        } catch (SchedulerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

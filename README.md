@@ -24,10 +24,10 @@
   
 ### demo  
   HTTP请求任务管理  
-![image](https://github.com/helloflygit/springboot-quartz/raw/master/demo-images/httpjob-manage.png)  
+![image](https://github.com/maoYanggit/springboot-quartz/raw/master/demo-images/httpjob-manage.png)  
 
   HTTP请求任务添加  
-![image](https://github.com/helloflygit/springboot-quartz/raw/master/demo-images/httpjob-add.png)  
+![image](https://github.com/maoYanggit/springboot-quartz/raw/master/demo-images/httpjob-add.png)  
 
   HTTP请求任务执行记录  
-![image](https://github.com/helloflygit/springboot-quartz/raw/master/demo-images/httpjob-logs.png)  
+![image](https://github.com/maoYanggit/springboot-quartz/raw/master/demo-images/httpjob-logs.png)  

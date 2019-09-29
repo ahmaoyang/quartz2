@@ -3,7 +3,7 @@ package com.example.quartz.constants;
 /**
  * 常量类
  *
- * @author hellofly
+ * @author maoYang
  * @date 2019/4/9
  */
 public class Constant {

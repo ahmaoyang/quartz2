@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 /**
  * JSON校验工具类
  *
- * @author hellofly
+ * @author maoYang
  * @date 2019/4/9
  */
 public class JsonValidUtil {

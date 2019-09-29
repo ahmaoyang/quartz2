@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>定时任务管理</title>
+    <title>分布式任务调度平台</title>
     <script src="js/vue.min.js"></script>
     <script src="js/axios.min.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
@@ -58,9 +58,9 @@
 
     <div style="margin-top:10px">
         <el-table ref="dataTable" :data="tableData" style="width:100%" border>
-            <el-table-column prop="jobName" label="任务名称" sortable width="120"></el-table-column>
-            <el-table-column prop="jobGroup" label="任务所在组" sortable width="120"></el-table-column>
-            <el-table-column prop="jobStatusInfo" label="任务状态" sortable width="120">
+            <el-table-column prop="jobName" label="任务名称" sortable width="80"></el-table-column>
+            <el-table-column prop="jobGroup" label="任务所在组" sortable width="80"></el-table-column>
+            <el-table-column prop="jobStatusInfo" label="任务状态" sortable width="100">
                 <template scope="scope">
                     <span v-if="scope.row.jobStatusInfo == 'NORMAL'" style="font-weight:bold; color: green">{{scope.row.jobStatusInfo}}</span>
                     <span v-else style="font-weight:bold; color: red">{{scope.row.jobStatusInfo}}</span>
@@ -74,16 +74,15 @@
             <el-table-column prop="cronExpression" label="Cron表达式" sortable width="170"></el-table-column>
             <el-table-column prop="nextFireTime" label="下次运行时间" sortable width="170"></el-table-column>
 
-            <el-table-column label="操作" width="400">
+            <el-table-column label="操作" width="500">
                 <template scope="scope">
                     <el-button size="small" type="primary"><a :href="`./httpJobLog.html?jobName=${encodeURI(scope.row.jobName)}&jobGroup=${encodeURI(scope.row.jobGroup)}`"
                             target="_self">执行记录</a>
-                    </el-button>
+                    </el-button> <el-button size="small" type="success" @click="doFast(scope.$index, scope.row)">立即执行一次</el-button>
                     <el-button size="small" type="warning" @click="pauseJob(scope.$index, scope.row)">暂停</el-button>
                     <el-button size="small" type="info" @click="resumeJob(scope.$index, scope.row)">恢复</el-button>
                     <el-button size="small" type="danger" @click="deleteJob(scope.$index, scope.row)">删除</el-button>
-                    <el-button size="small" type="success" @click="updateJob(scope.$index, scope.row, true)">修改
-                    </el-button>
+                    <el-button size="small" type="success" @click="updateJob(scope.$index, scope.row, true)">修改</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -245,6 +244,33 @@
                 this.updateForm.jobName = row.jobName;
                 this.updateForm.jobGroup = row.jobGroup;
                 this.updateForm.cronExpression = row.cronExpression;
+            },
+
+            //暂停任务
+            doFast: function (index, row) {
+                axios({
+                    url: 'quartz/job/doFast',
+                    method: 'post',
+                    params: {
+                        jobName: row.jobName,
+                        jobGroup: row.jobGroup
+                    }
+                }).then((res) => {
+                    if (res.data.status == 0) {
+                    this.$message({
+                        type: 'success',
+                        message: res.data.message
+                    });
+                    this.addFormVisible = false;
+                } else {
+                    this.$message({
+                        type: 'warning',
+                        message: res.data.message
+                    })
+                }
+            }).catch((error) => {
+                    console.log(error);
+            });
             },
 
             //更新任务
